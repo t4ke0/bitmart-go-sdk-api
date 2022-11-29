@@ -12,7 +12,7 @@ type Config struct {
 
 type CloudResponse struct {
 	httpStatus int
-	response   string
+	Response   string
 	limit      RateLimit
 }
 

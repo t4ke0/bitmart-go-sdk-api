@@ -21,10 +21,8 @@ type ApiMessage struct {
 	Message string `json:"message"`
 }
 
-
-
 /*
- Get a http client
+Get a http client
 */
 func NewClient(config Config) *CloudClient {
 	var client CloudClient
@@ -38,7 +36,6 @@ func NewClient(config Config) *CloudClient {
 	}
 	return &client
 }
-
 
 /*
 Send a GET http request without params
@@ -90,7 +87,7 @@ func (cloudClient *CloudClient) Request(method string, requestPath string, param
 		if params != nil {
 			jsonBody, binBody, err = ParseRequestParams(params)
 			if err != nil {
-				return response,  err
+				return response, err
 			}
 		}
 	}
@@ -121,7 +118,6 @@ func (cloudClient *CloudClient) Request(method string, requestPath string, param
 		PrintRequest(request, jsonBody)
 	}
 
-
 	// send a request to remote server, and get a response
 	response, err = cloudClient.HttpClient.Do(request)
 	if err != nil {
@@ -136,7 +132,7 @@ func (cloudClient *CloudClient) Request(method string, requestPath string, param
 	}
 
 	cloudResponse.httpStatus = response.StatusCode
-	cloudResponse.response = string(body)
+	cloudResponse.Response = string(body)
 	cloudResponse.limit.limit = StringToInt(response.Header.Get("X-BM-RateLimit-Limit"))
 	cloudResponse.limit.remaining = StringToInt(response.Header.Get("X-BM-RateLimit-Remaining"))
 	cloudResponse.limit.reset = StringToInt(response.Header.Get("X-BM-RateLimit-Reset"))
